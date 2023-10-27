@@ -29,5 +29,5 @@ for dir in home_dirs:
         for key, count in keys.items():
             if count > 1:
                 print(f"{key.strip()} is duplicated {count} times")
-            if count == 1:
-                print(f"{key.strip()} is not duplicated")
+            # if count == 1:
+            #     print(f"{key.strip()} is not duplicated")

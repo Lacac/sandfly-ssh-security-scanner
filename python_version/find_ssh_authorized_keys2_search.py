@@ -19,5 +19,5 @@ for dir in home_dirs:
         print(f'An authorized_keys2 file was found at: {authorized_keys2_path}.')
         found = True
 
-if not found:
-    print('No authorized_keys2 files found.')
+# if not found:
+#     print('No authorized_keys2 files found.')
