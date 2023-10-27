@@ -26,6 +26,9 @@ for dir in $home_dirs; do
             if [ "$count" -gt 1 ]; then
                 echo "$key is duplicated $count times"
             fi
+            if [ "$count" -eq 1 ]; then
+                echo "$key is not duplicated"
+            fi
         done
     fi
 done
