@@ -16,9 +16,16 @@ fi
 # Get list of all home directories
 home_dirs=$(awk -F':' '{ print $6 }' /etc/passwd)
 
+
+found=false
 for dir in $home_dirs; do
     # Check if the authorized_keys2 file exists
     if [ -f $dir/.ssh/authorized_keys2 ]; then
         echo "An authorized_keys2 file was found at: $dir/.ssh/authorized_keys2."
+        found=true
     fi
 done
+
+if [ "$found" = false ]; then
+   echo "No authorized_keys2 files found "
+fi
