@@ -1,6 +1,8 @@
 import os
 import sys
-from collections import defaultdict 
+
+# Set to your limit for excessive keys.
+MAX_KEY = 10
 
 # This script needs to be run as root to be able to read all user's .ssh directories
 if os.geteuid() != 0:
@@ -11,24 +13,20 @@ if os.geteuid() != 0:
 with open('/etc/passwd', 'r') as passwd_file:
     home_dirs = [line.split(':')[5] for line in passwd_file]
 
-
-
 for dir in home_dirs:
     authorized_keys_path = os.path.join(dir, '.ssh', 'authorized_keys')
 
     if os.path.isfile(authorized_keys_path):
         print(f"Processing {authorized_keys_path}.")
 
-        # Read the authorized_keys file and count duplicates (read line)
-        keys = defaultdict(int)
+        count_key = 0
+        # Count the number of key (line)
         with open(authorized_keys_path, 'r') as auth_keys_file:
             for line in auth_keys_file:
                 if (line.strip() != ""):
-                    keys[line] += 1
-
-        # Print duplicate keys and their counts
-        for key, count in keys.items():
-            if count > 1:
-                print(f"{key.strip()} is duplicated {count} times")
-            # if count == 1:
-            #     print(f"{key.strip()} is not duplicated")
+                    count_key += 1
+        
+        if (count_key > MAX_KEY):
+            print(f"User with home directory {dir} has {count_key} keys in the authorized_keys file")
+        else: 
+            print(f"User with home directory {dir} has {count_key} keys")
