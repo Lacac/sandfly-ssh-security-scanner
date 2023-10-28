@@ -16,6 +16,7 @@ for dir in home_dirs:
     authorized_keys_path = os.path.join(dir, '.ssh', 'authorized_keys')
 
     if os.path.isfile(authorized_keys_path):
+        print(f"Processing {authorized_keys_path}.")
         with open(authorized_keys_path, 'r') as auth_keys_file:
             options_set = []
 
